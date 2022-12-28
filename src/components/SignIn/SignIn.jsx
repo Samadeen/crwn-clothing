@@ -4,7 +4,6 @@ import './SignIn.scss';
 import FormInput from '../FormInput/FormInput.jsx';
 import Button from '../Button/Button.jsx';
 import {
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from '../../utils/Firebase/Firebase';
@@ -20,8 +19,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async (e) => {
     e.preventDefault();
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const resetFormFields = () => {
@@ -32,11 +30,10 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
