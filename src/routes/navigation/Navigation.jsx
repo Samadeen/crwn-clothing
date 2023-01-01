@@ -4,9 +4,14 @@ import './Navigation.scss';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { signOutUser } from '../../utils/Firebase/Firebase';
+import CartIcon from '../../components/CartIcon/CartIcon';
+import CartDropdown from '../../components/CartDropdown/CartDropdown';
+import { CartContext } from '../../contexts/CartContext';
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
+
   console.log(currentUser);
 
   return (
@@ -28,7 +33,9 @@ const Navigation = () => {
               SIGN IN
             </NavLink>
           )}
+          <CartIcon />
         </nav>
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>
